@@ -18,7 +18,9 @@ export class WelcomeComponent implements OnInit {
 
   setupForm() {
     this.welcomeForm = new FormGroup({
-      nome: new FormControl('Nin', Validators.required)
+      nome: new FormControl('', Validators.required),
+      maiorBola: new FormControl(30),
+      codigoBingo: new FormControl('')
     });
   }
 

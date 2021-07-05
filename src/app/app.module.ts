@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 const angularComponentsModules = [
   MatSliderModule,
@@ -18,7 +20,9 @@ const angularComponentsModules = [
   MatButtonModule,
   MatFormFieldModule,
   ReactiveFormsModule,
-  MatInputModule
+  MatInputModule,
+  MatExpansionModule,
+  MatIconModule
 ];
 
 const applicationComponents = [
