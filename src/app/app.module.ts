@@ -13,6 +13,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MarcaComponent } from './marca/marca.component';
+import { ModeloComponent } from './modelo/modelo.component';
+import { AnoComponent } from './ano/ano.component';
+import { OpcionalComponent } from './opcional/opcional.component';
 
 const angularComponentsModules = [
   MatSliderModule,
@@ -27,12 +31,16 @@ const angularComponentsModules = [
 
 const applicationComponents = [
   AppComponent,
-  WelcomeComponent
+  WelcomeComponent,
+  MarcaComponent,
+  ModeloComponent  
 ];
 
 @NgModule({
   declarations: [
-    ...applicationComponents  
+    ...applicationComponents,
+    AnoComponent,
+    OpcionalComponent    
   ],
   imports: [
     BrowserModule,

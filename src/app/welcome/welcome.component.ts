@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'welcome',
@@ -9,11 +10,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class WelcomeComponent implements OnInit {
 
   welcomeForm: FormGroup = new FormGroup({});
+  modelos: string = '';
+  readonly subject = new Subject<number>();
 
   constructor() { }
 
   ngOnInit(): void {
     this.setupForm();
+    this.subject.subscribe(x => console.log('recebido: ' + x));    
   }
 
   setupForm() {
@@ -24,4 +28,8 @@ export class WelcomeComponent implements OnInit {
     });
   }
 
+  aoSelecionarMarca(event: any) {
+    console.log('chegou no pai: ' + event);
+    this.modelos = event;
+  }
 }
