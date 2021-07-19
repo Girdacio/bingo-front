@@ -17,6 +17,7 @@ import { MarcaComponent } from './marca/marca.component';
 import { ModeloComponent } from './modelo/modelo.component';
 import { AnoComponent } from './ano/ano.component';
 import { OpcionalComponent } from './opcional/opcional.component';
+import { TesteWebSocketComponent } from './teste-web-socket/teste-web-socket.component';
 
 const angularComponentsModules = [
   MatSliderModule,
@@ -40,7 +41,8 @@ const applicationComponents = [
   declarations: [
     ...applicationComponents,
     AnoComponent,
-    OpcionalComponent    
+    OpcionalComponent,
+    TesteWebSocketComponent    
   ],
   imports: [
     BrowserModule,
