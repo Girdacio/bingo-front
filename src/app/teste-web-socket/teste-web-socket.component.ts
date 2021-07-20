@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-// import { Client, Message } from '@stomp/stompjs';
-// var sockjs = require('node_modules/sockjs-client/dist/sockjs')
-// import * from 'sockjs-client';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SalaConfig } from '../models/sala-config.model';
+import { Sala } from '../models/sala.model';
+
 declare let SockJS: any;
 declare let Stomp: any;
 
@@ -11,57 +11,45 @@ declare let Stomp: any;
   templateUrl: './teste-web-socket.component.html',
   styleUrls: ['./teste-web-socket.component.scss']
 })
-export class TesteWebSocketComponent implements OnInit {
+export class TesteWebSocketComponent implements OnInit, OnDestroy {
 
   public text: any;
   private stompClient: any;
 
-  constructor() { }
+  constructor() { }  
 
   ngOnInit(): void {
-    // sockjs
-    // var socket = new SockJs('/gs-guide-websocket');
-    // this.rxStomp.brokerURL = "ws://localhost:8080/gs-guide-websocket";
-    // this.rxStomp.debug = (str) => {
-    //   console.log('STOMP: ' + str);
-    // };
-    // this.rxStomp.reconnectDelay = 3000;
-
-    // // Attempt to connect
-    // this.rxStomp.activate();
-
-    // // this.rxStomp.watch('/topic/greetings').subscribe(message => {
-    // //   console.log(message);
-    // // });
-
-    // this.rxStomp.publish({ destination: "/app/hello", body: JSON.stringify({ name: "Hello, STOMP" }) });
     this.connect();
   }
 
-  connect() {
-    let socket = new SockJS('http://localhost:8080/gs-guide-websocket');
-    console.log(socket);
+  ngOnDestroy(): void {
+    this.disconnect();
+  }
+
+  private connect() {
+    let socket = new SockJS('http://localhost:8080/bingo-websocket');    
     this.stompClient = Stomp.over(socket);
        
-    this.stompClient.connect({}, (frame: any) => {      
-      console.log('Connected: ' + frame);
-      this.stompClient.subscribe('/topic/greetings', (greeting: any) => {
-        console.log(JSON.parse(greeting.body).content);
-        this.text = JSON.parse(greeting.body).content;
+    this.stompClient.connect({}, () => {
+      this.stompClient.subscribe('/topic/sala-criada', (sala: string) => {
+        console.log(JSON.parse(sala));
       });
-    });   
+    });
+
   }
 
   public send() {
-    this.stompClient.send("/app/hello", {}, JSON.stringify({'name': 'hello websocket!'}));    
+    const salaConfig: SalaConfig = {
+      organizador: "girda",
+      maiorBola: 10
+    };
+    this.stompClient.send("/criar-sala", {}, JSON.stringify(salaConfig));
   }
 
-  disconnect() {
-    // if (stompClient !== null) {
-    //   stompClient.disconnect();
-    // }
-    
-    // console.log("Disconnected");
+  private disconnect() {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
   }
 
 }
