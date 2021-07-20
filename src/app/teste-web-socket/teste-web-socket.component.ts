@@ -43,7 +43,7 @@ export class TesteWebSocketComponent implements OnInit, OnDestroy {
       organizador: "girda",
       maiorBola: 10
     };
-    this.stompClient.send("/criar-sala", {}, JSON.stringify(salaConfig));
+    this.stompClient.send("/app/criar-sala", {}, JSON.stringify(salaConfig));
   }
 
   private disconnect() {
