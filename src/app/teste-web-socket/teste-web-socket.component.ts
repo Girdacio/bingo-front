@@ -27,11 +27,11 @@ export class TesteWebSocketComponent implements OnInit, OnDestroy {
   }
 
   private connect() {
-    let socket = new SockJS('http://localhost:8080/bingo-websocket');    
+    let socket = new SockJS('http://localhost:8080/gs-guide-websocket');    
     this.stompClient = Stomp.over(socket);
        
     this.stompClient.connect({}, () => {
-      this.stompClient.subscribe('/topic/sala-criada', (sala: string) => {
+      this.stompClient.subscribe('/topic/greetings', (sala: string) => {
         console.log(JSON.parse(sala));
       });
     });
@@ -39,11 +39,20 @@ export class TesteWebSocketComponent implements OnInit, OnDestroy {
   }
 
   public send() {
-    const salaConfig: SalaConfig = {
-      organizador: "girda",
-      maiorBola: 10
-    };
-    this.stompClient.send("/app/criar-sala", {}, JSON.stringify(salaConfig));
+    // const salaConfig: SalaConfig = {
+    //   organizador: "girda",
+    //   maiorBola: 10
+    // };
+    // let msg = {name: 'teste websocket!'};
+    // this.stompClient.send("/app/hello", {}, JSON.stringify(msg));
+
+    var socket = new WebSocket('ws://localhost:3000');
+    socket.onopen = function(event) {
+      socket.send('olá');
+      socket.onmessage = function(event) {
+        console.log(event);
+      }
+    }    
   }
 
   private disconnect() {

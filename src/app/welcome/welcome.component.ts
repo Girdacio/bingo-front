@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { CriarBingoData } from '../models/criar-bingo-data.model';
+import { BingoService } from '../services/bingo.service';
 
 @Component({
   selector: 'welcome',
@@ -13,7 +15,7 @@ export class WelcomeComponent implements OnInit {
   modelos: string = '';
   readonly subject = new Subject<number>();
 
-  constructor() { }
+  constructor(private bingoService: BingoService) { }
 
   ngOnInit(): void {
     this.setupForm();
@@ -28,8 +30,17 @@ export class WelcomeComponent implements OnInit {
     });
   }
 
-  aoSelecionarMarca(event: any) {
-    console.log('chegou no pai: ' + event);
-    this.modelos = event;
+  criarSala() {
+    let data = this.buildData();
+    this.bingoService.criarBingo(data).subscribe(bingo => {
+      console.log(bingo);
+    });
+  }
+
+  private buildData(): CriarBingoData {
+    let participanteId = Math.random().toString(36).substr(2, 5);
+    let nome = this.welcomeForm.get('nome')?.value;
+    let maiorBola = this.welcomeForm.get('maiorBola')?.value;
+    return { participanteId: participanteId, nome: nome, maiorBola: maiorBola };
   }
 }

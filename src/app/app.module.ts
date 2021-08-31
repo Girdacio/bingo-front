@@ -1,23 +1,21 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
 import { MarcaComponent } from './marca/marca.component';
 import { ModeloComponent } from './modelo/modelo.component';
-import { AnoComponent } from './ano/ano.component';
-import { OpcionalComponent } from './opcional/opcional.component';
-import { TesteWebSocketComponent } from './teste-web-socket/teste-web-socket.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+
 
 const angularComponentsModules = [
   MatSliderModule,
@@ -37,17 +35,19 @@ const applicationComponents = [
   ModeloComponent  
 ];
 
+const angularModules = [
+  BrowserModule,
+  AppRoutingModule,
+  BrowserAnimationsModule,
+  HttpClientModule
+];
+
 @NgModule({
   declarations: [
-    ...applicationComponents,
-    AnoComponent,
-    OpcionalComponent,
-    TesteWebSocketComponent    
+    ...applicationComponents   
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
+    ...angularModules,
     ...angularComponentsModules
   ],
   providers: [],
