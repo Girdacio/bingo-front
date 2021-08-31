@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { CriarBingoData } from '../models/criar-bingo-data.model';
 import { BingoService } from '../services/bingo.service';
@@ -15,7 +16,9 @@ export class WelcomeComponent implements OnInit {
   modelos: string = '';
   readonly subject = new Subject<number>();
 
-  constructor(private bingoService: BingoService) { }
+  constructor(
+    private bingoService: BingoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.setupForm();
@@ -33,8 +36,17 @@ export class WelcomeComponent implements OnInit {
   criarSala() {
     let data = this.buildData();
     this.bingoService.criarBingo(data).subscribe(bingo => {
-      console.log(bingo);
+      this.irParaBingoPage(bingo.hash);
     });
+  }
+
+  entrar() {
+    const bingo = this.welcomeForm.get('codigoBingo')?.value;
+    this.irParaBingoPage(bingo);
+  }
+
+  private irParaBingoPage(bingo: string) {
+    this.router.navigate(['bingo'], { queryParams: {id: bingo}});
   }
 
   private buildData(): CriarBingoData {

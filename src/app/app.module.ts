@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { MarcaComponent } from './marca/marca.component';
 import { ModeloComponent } from './modelo/modelo.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { BingoComponent } from './bingo/bingo.component';
 
 
 const angularComponentsModules = [
@@ -32,7 +33,8 @@ const applicationComponents = [
   AppComponent,
   WelcomeComponent,
   MarcaComponent,
-  ModeloComponent  
+  ModeloComponent,
+  BingoComponent
 ];
 
 const angularModules = [
@@ -44,7 +46,7 @@ const angularModules = [
 
 @NgModule({
   declarations: [
-    ...applicationComponents   
+    ...applicationComponents    
   ],
   imports: [
     ...angularModules,
