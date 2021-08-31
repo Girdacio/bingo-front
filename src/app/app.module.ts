@@ -16,7 +16,7 @@ import { MarcaComponent } from './marca/marca.component';
 import { ModeloComponent } from './modelo/modelo.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BingoComponent } from './bingo/bingo.component';
-
+import { CookieService } from 'ngx-cookie-service';
 
 const angularComponentsModules = [
   MatSliderModule,
@@ -52,7 +52,7 @@ const angularModules = [
     ...angularModules,
     ...angularComponentsModules
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

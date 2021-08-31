@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 import { CriarBingoData } from '../models/criar-bingo-data.model';
 import { BingoService } from '../services/bingo.service';
 
@@ -14,15 +14,22 @@ export class WelcomeComponent implements OnInit {
 
   welcomeForm: FormGroup = new FormGroup({});
   modelos: string = '';
-  readonly subject = new Subject<number>();
-
+  
   constructor(
     private bingoService: BingoService,
-    private router: Router) { }
+    private router: Router,
+    private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.setupForm();
-    this.subject.subscribe(x => console.log('recebido: ' + x));    
+    this.setupCookies();
+  }
+
+  private setupCookies() {
+    if(!this.cookieService.check('participanteId')) {
+      const participanteId = Math.random().toString(36).substr(2, 5);
+      this.cookieService.set('participanteId', participanteId)
+    }
   }
 
   setupForm() {
@@ -50,7 +57,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   private buildData(): CriarBingoData {
-    let participanteId = Math.random().toString(36).substr(2, 5);
+    let participanteId = this.cookieService.get('participanteId');
     let nome = this.welcomeForm.get('nome')?.value;
     let maiorBola = this.welcomeForm.get('maiorBola')?.value;
     return { participanteId: participanteId, nome: nome, maiorBola: maiorBola };
